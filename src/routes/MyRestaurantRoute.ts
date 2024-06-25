@@ -14,8 +14,21 @@ const upload = multer({
   },
 });
 
+router.get(
+  "/order",
+  jwtCheck,
+  jwtParse,
+  MyRestaurantController.getMyRestaurantOrders
+);
 
-router.get('/',jwtCheck,jwtParse,MyRestaurantController.getMyRestaurant)
+router.patch(
+  "/order/:orderId/status",
+  jwtCheck,
+  jwtParse,
+  MyRestaurantController.updateOrderStatus
+);
+
+router.get("/", jwtCheck, jwtParse, MyRestaurantController.getMyRestaurant);
 
 router.post(
   "/",
@@ -27,12 +40,12 @@ router.post(
 );
 
 router.put(
-    "/",
-    upload.single("imageFile"),
-    validateMyRestaurantRequest,
-    jwtCheck,
-    jwtParse,
-    MyRestaurantController.updateMyRestaurant
-  );
+  "/",
+  upload.single("imageFile"),
+  validateMyRestaurantRequest,
+  jwtCheck,
+  jwtParse,
+  MyRestaurantController.updateMyRestaurant
+);
 
 export default router;

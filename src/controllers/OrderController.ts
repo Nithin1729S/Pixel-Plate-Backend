@@ -57,7 +57,10 @@ const stripeWebhookHandler = async (req: Request, res: Response) => {
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
-
+    if (event.data.object.amount_total == null) {
+        return res.status(400).json({ message: "amount_total is null" });
+      }
+    // order.totalAmount = event.data.object.amount_total /100;
     order.totalAmount = event.data.object.amount_total;
     order.status = "paid";
 
