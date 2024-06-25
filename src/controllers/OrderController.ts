@@ -95,7 +95,7 @@ const createCheckoutSession = async (req: Request, res: Response) => {
     const session = await createSession(
       lineItems,
       newOrder._id.toString(),
-      restaurant.deliveryPrice,
+      restaurant.deliveryPrice*100,
       restaurant._id.toString()
     );
 
@@ -127,7 +127,7 @@ const createLineItems = (
     const line_item: Stripe.Checkout.SessionCreateParams.LineItem = {
       price_data: {
         currency: "inr",
-        unit_amount: menuItem.price,
+        unit_amount: menuItem.price*100,
         product_data: {
           name: menuItem.name,
         },
